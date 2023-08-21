@@ -11,6 +11,9 @@ import book from "../assets/book.png";
 import good from "../assets/good.svg";
 import bad from "../assets/bad.svg";
 import share from "../assets/share.svg";
+import mirror from "../assets/mirror.png";
+import chicken from "../assets/chicken.png";
+import holder from "../assets/holder.png";
 export default function Product() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -20,32 +23,32 @@ export default function Product() {
   const [isGood, setIsGood] = useState([null, null, null, null]);
   const cards = [
     {
-      name: "메리골드 마음 세탁소",
-      type: "책/소설",
-      subtitle: "북로망스",
-      date: "2023. 06. 13",
-      img: book,
+      name: "비정형 전신 거울",
+      type: "오브제",
+      subtitle: "베노식스",
+      date: "2023. 08. 04",
+      img: mirror,
+    },
+    {
+      name: "닭가슴살 꾸이칩 시그니처",
+      type: "푸드",
+      subtitle: "아임닭",
+      date: "2023. 08. 13",
+      img: chicken,
     },
     {
       name: "메리골드 마음 세탁소",
-      type: "책/소설",
+      type: "도서",
       subtitle: "북로망스",
-      date: "2023. 06. 13",
+      date: "2023. 08. 21",
       img: book,
     },
     {
-      name: "메리골드 마음 세탁소",
-      type: "책/소설",
-      subtitle: "북로망스",
-      date: "2023. 06. 13",
-      img: book,
-    },
-    {
-      name: "메리골드 마음 세탁소",
-      type: "책/소설",
-      subtitle: "북로망스",
-      date: "2023. 06. 13",
-      img: book,
+      name: "BAE 인센스 홀더",
+      type: "도서",
+      subtitle: "SAGAYO",
+      date: "2023. 08. 21",
+      img: holder,
     },
   ];
   const settings = {

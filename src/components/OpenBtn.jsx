@@ -14,8 +14,8 @@ const Btn = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  border-radius: 16px;
-  background: var(--brand-500, #397153);
+  border-radius: 10px;
+  background: var(--cg-600, #454c53);
   color: var(--cg-50, #f7f8f9);
   margin-top: 24px;
   /* Kor/M/15 */

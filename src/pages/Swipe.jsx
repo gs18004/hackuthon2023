@@ -3,6 +3,10 @@ import Topbar2 from "../components/Topbar2";
 import TinderCard from "react-tinder-card";
 import { useEffect, useState } from "react";
 import card1 from "../assets/card1.png";
+import card2 from "../assets/card2.png";
+import card3 from "../assets/card3.png";
+import card4 from "../assets/card4.png";
+import card5 from "../assets/card5.png";
 import { AnimatePresence, motion } from "framer-motion";
 import good from "../assets/good.svg";
 import bad from "../assets/bad.svg";
@@ -17,11 +21,11 @@ export default function Swipe() {
   const [showTutorial, setShowTutorial] = useState(true);
   const [count, setCount] = useState(0);
   const cards = [
-    { name: "제니쿠키", type: "음식", img: card1 },
-    { name: "제니쿠키", type: "음식", img: card1 },
-    { name: "제니쿠키", type: "음식", img: card1 },
-    { name: "제니쿠키", type: "음식", img: card1 },
-    { name: "제니쿠키", type: "음식", img: card1 },
+    { name: "제니쿠키", type: "푸드", img: card1 },
+    { name: "포스터 미러", type: "오브제", img: card2 },
+    { name: "오브제 트레이", type: "오브제", img: card3 },
+    { name: "IT/개발 도서", type: "도서", img: card4 },
+    { name: "마카롱", type: "푸드", img: card5 },
   ];
   const onSwipe = (direction) => {
     if (direction === "right") {
