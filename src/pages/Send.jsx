@@ -17,17 +17,18 @@ function Send() {
     };
   };
   const data = [
-    { name: "김이름", date: "2023/04/01", img: "" },
-    { name: "김이름", date: "2023/04/01", img: "" },
-    { name: "김이름", date: "2023/04/01", img: "" },
-    { name: "김이름", date: "2023/04/01", img: "" },
-    { name: "김이름", date: "2023/04/01", img: "" },
-    { name: "김이름", date: "2023/04/01", img: "" },
-    { name: "김이름", date: "2023/04/01", img: "" },
-    { name: "김이름", date: "2023/04/01", img: "" },
-    { name: "김이름", date: "2023/04/01", img: "" },
-    { name: "김이름", date: "2023/04/01", img: "" },
-    { name: "김이름", date: "2023/04/01", img: "" },
+    { name: "박원빈", date: "2023/08/01", img: "" },
+    { name: "김지수", date: "2023/07/17", img: "" },
+    { name: "김태이", date: "2023/07/05", img: "" },
+    { name: "이지연", date: "2023/06/03", img: "" },
+    { name: "정규민", date: "2023/05/31", img: "" },
+    { name: "성해은", date: "2023/04/22", img: "" },
+    { name: "남희두", date: "2023/04/07", img: "" },
+    { name: "이나연", date: "2023/04/01", img: "" },
+    { name: "정현규", date: "2023/04/01", img: "" },
+    { name: "박나언", date: "2023/03/31", img: "" },
+    { name: "선민기", date: "2023/03/28", img: "" },
+    { name: "최이현", date: "2023/03/03", img: "" },
   ];
   return (
     <Container
@@ -51,7 +52,7 @@ function Send() {
           >
             <Box>
               <BoxLeft>
-                <Img />
+                {/* <Img /> */}
                 <Column>
                   <Name>{el.name}</Name>
                   <Desc>
@@ -133,19 +134,12 @@ const BoxLeft = styled.div`
   align-items: center;
   gap: 8px;
 `;
-const Img = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  opacity: 0.5;
-  background: #bebebe;
-  margin-left: 20px;
-`;
 const Column = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
+  margin-left: 20px;
 `;
 const Name = styled.div`
   color: #1e1e1e;

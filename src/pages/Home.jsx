@@ -5,7 +5,7 @@ import tail from "../assets/tail.svg";
 import credit from "../assets/credit.svg";
 import floating from "../assets/floating.svg";
 import Topbar from "../components/Topbar";
-import { motion } from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { pageVariants } from "../animation/variants";
 function Home() {
@@ -20,6 +20,9 @@ function Home() {
     "세상에서 제일 예쁜 사람은 누구게?",
     "요즘 날이 너무 덥지 않아?",
   ];
+  const [easterEgg, setEasterEgg] = useState(
+    easterEggs[Math.floor(Math.random() * easterEggs.length)]
+  );
   useEffect(() => {
     const coinData = localStorage.getItem("coin");
     if (!coinData) localStorage.setItem("coin", 0);
@@ -60,9 +63,7 @@ function Home() {
             </GoSwipeBtn>
           </>
         ) : (
-          <Message>
-            {easterEggs[Math.floor(Math.random() * easterEggs.length)]}
-          </Message>
+          <Message>{easterEgg}</Message>
         )}
       </MessageBox>
       <Tail
@@ -113,16 +114,6 @@ const TopRow = styled.div`
   align-items: center;
   justify-content: flex-end;
   margin-bottom: 22px;
-`;
-const Title = styled.p`
-  color: var(--cg-600, #454c53);
-
-  /* Kor/B/22 */
-  font-family: Pretendard;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%; /* 33px */
 `;
 const CreditBox = styled.div`
   display: flex;
