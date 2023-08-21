@@ -16,6 +16,8 @@ import book9 from "../assets/book9.png";
 import book10 from "../assets/book10.png";
 import book11 from "../assets/book11.png";
 import book12 from "../assets/book12.png";
+import check from "../assets/check.svg";
+import toast, { Toaster } from "react-hot-toast";
 function Taste() {
   const [searchParams] = useSearchParams();
   const [selected, setSelected] = useState(0);
@@ -23,6 +25,7 @@ function Taste() {
   const ref1 = useRef(null);
   const ref2 = useRef(null);
   const [left, setLeft] = useState(60);
+  const [editMode, setEditMode] = useState(false);
   const ref = {
     0: ref0,
     1: ref1,
@@ -34,19 +37,26 @@ function Taste() {
     2: "푸드",
   };
   const books = [
-    { name: "요리", img: book1 },
-    { name: "예술", img: book2 },
-    { name: "역사", img: book3 },
-    { name: "부동산", img: book4 },
-    { name: "비즈니스", img: book5 },
-    { name: "철학", img: book6 },
-    { name: "에세이", img: book7 },
-    { name: "자기계발", img: book8 },
-    { name: "소설", img: book9 },
-    { name: "시집", img: book10 },
-    { name: "투자", img: book11 },
-    { name: "IT", img: book12 },
+    { index: 0, name: "요리", img: book1 },
+    { index: 1, name: "예술", img: book2 },
+    { index: 2, name: "역사", img: book3 },
+    { index: 3, name: "부동산", img: book4 },
+    { index: 4, name: "비즈니스", img: book5 },
+    { index: 5, name: "철학", img: book6 },
+    { index: 6, name: "에세이", img: book7 },
+    { index: 7, name: "자기계발", img: book8 },
+    { index: 8, name: "소설", img: book9 },
+    { index: 9, name: "시집", img: book10 },
+    { index: 10, name: "투자", img: book11 },
+    { index: 11, name: "IT", img: book12 },
   ];
+  const [selectedBooks, setSelectedBooks] = useState([
+    { index: 0, name: "요리", img: book1 },
+    { index: 2, name: "역사", img: book3 },
+    { index: 5, name: "철학", img: book6 },
+    { index: 10, name: "투자", img: book11 },
+    { index: 11, name: "IT", img: book12 },
+  ]);
   useEffect(() => {
     setLeft(ref[selected].current.offsetLeft);
   }, [selected]);
@@ -71,9 +81,13 @@ function Taste() {
         <Title>
           소소한 <Em>{title[selected]}</Em> 소포 어떠세요?
         </Title>
-        <CreditBox>
+        <CreditBox
+          onClick={() => {
+            setEditMode(!editMode);
+          }}
+        >
           <CreditImg src={settings} />
-          <CreditText>편집</CreditText>
+          <CreditText>{editMode ? "완료" : "편집"}</CreditText>
         </CreditBox>
       </TopRow>
       <SelectRowWrapper>
@@ -115,21 +129,62 @@ function Taste() {
           <Grid>
             <AnimatePresence>
               {selected === 0
-                ? books.map((book, idx) => (
-                    <Column
-                      initial="hidden"
-                      animate="visible"
-                      variants={variant(idx)}
-                    >
-                      <Img src={book.img} />
-                      <Name>{book.name}</Name>
-                    </Column>
-                  ))
+                ? editMode
+                  ? books.map((book, idx) => (
+                      <Column
+                        initial="hidden"
+                        animate="visible"
+                        variants={variant(idx)}
+                      >
+                        {selectedBooks.filter((el) => el.name === book.name)
+                          .length > 0 ? (
+                          <Check
+                            src={check}
+                            onClick={() => {
+                              if (selectedBooks.length === 1) {
+                                toast.error(
+                                  "최소 1개의 관심 주제를 선택해주세요.",
+                                  { id: "1" }
+                                );
+                              } else {
+                                setSelectedBooks((prev) =>
+                                  [...prev].filter(
+                                    (el) => el.name !== book.name
+                                  )
+                                );
+                              }
+                            }}
+                          />
+                        ) : null}
+                        <Img
+                          src={book.img}
+                          onClick={() => {
+                            setSelectedBooks((prev) =>
+                              [...prev, book].sort(function (x, y) {
+                                return x.index - y.index;
+                              })
+                            );
+                          }}
+                        />
+                        <Name>{book.name}</Name>
+                      </Column>
+                    ))
+                  : selectedBooks.map((book, idx) => (
+                      <Column
+                        initial="hidden"
+                        animate="visible"
+                        variants={variant(idx)}
+                      >
+                        <Img src={book.img} />
+                        <Name>{book.name}</Name>
+                      </Column>
+                    ))
                 : null}
             </AnimatePresence>
           </Grid>
         </GridWrapper>
       </SelectRowWrapper>
+      <Toaster />
     </Container>
   );
 }
@@ -254,6 +309,13 @@ const Column = styled(motion.div)`
   align-items: center;
   gap: 4px;
 `;
+const Check = styled.img`
+  width: 95px;
+  height: 95px;
+  z-index: 10;
+  margin-bottom: -99px;
+  opacity: 0.9;
+`;
 const Img = styled.img`
   width: 95px;
   height: 95px;
@@ -270,4 +332,17 @@ const Name = styled.p`
   font-style: normal;
   font-weight: 500;
   line-height: 150%; /* 19.5px */
+`;
+const PleaseEdit = styled.p`
+  width: 100%;
+  color: #000;
+  text-align: center;
+
+  /* Kor/M/15 */
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 22.5px */
+  margin-top: 150px;
 `;
