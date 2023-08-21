@@ -60,7 +60,23 @@ function Taste() {
   useEffect(() => {
     setLeft(ref[selected].current.offsetLeft);
   }, [selected]);
-
+  useEffect(() => {
+    const selectedBooksData = localStorage.getItem("books");
+    if (!selectedBooksData)
+      localStorage.setItem(
+        "books",
+        JSON.stringify([
+          { index: 0, name: "요리", img: book1 },
+          { index: 2, name: "역사", img: book3 },
+          { index: 5, name: "철학", img: book6 },
+          { index: 10, name: "투자", img: book11 },
+          { index: 11, name: "IT", img: book12 },
+        ])
+      );
+    else {
+      setSelectedBooks(JSON.parse(selectedBooksData));
+    }
+  }, []);
   const variant = (i) => {
     return {
       visible: {
@@ -147,10 +163,17 @@ function Taste() {
                                   { id: "1" }
                                 );
                               } else {
+                                const newSelectedBooks = [
+                                  ...selectedBooks,
+                                ].filter((el) => el.name !== book.name);
                                 setSelectedBooks((prev) =>
                                   [...prev].filter(
                                     (el) => el.name !== book.name
                                   )
+                                );
+                                localStorage.setItem(
+                                  "books",
+                                  JSON.stringify(newSelectedBooks)
                                 );
                               }
                             }}
@@ -159,10 +182,20 @@ function Taste() {
                         <Img
                           src={book.img}
                           onClick={() => {
+                            const newSelectedBooks = [
+                              ...selectedBooks,
+                              book,
+                            ].sort(function (x, y) {
+                              return x.index - y.index;
+                            });
                             setSelectedBooks((prev) =>
                               [...prev, book].sort(function (x, y) {
                                 return x.index - y.index;
                               })
+                            );
+                            localStorage.setItem(
+                              "books",
+                              JSON.stringify(newSelectedBooks)
                             );
                           }}
                         />

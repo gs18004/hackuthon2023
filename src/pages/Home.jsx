@@ -16,11 +16,8 @@ function Home() {
   const [coin, setCoin] = useState(0);
   useEffect(() => {
     const coinData = localStorage.getItem("coin");
-    if (!coinData) localStorage.setItem("coin", 100);
-    else {
-      setCoin(coinData);
-      localStorage.setItem("coin", coinData);
-    }
+    if (!coinData) localStorage.setItem("coin", 0);
+    else setCoin(coinData);
   }, []);
   return (
     <Container

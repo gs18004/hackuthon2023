@@ -38,9 +38,9 @@ export default function Swipe() {
 
   useEffect(() => {
     if (count === 5) {
-      const coin = localStorage.getItem("coin");
-      if (!coin) localStorage.setItem("coin", 100);
-      else localStorage.setItem("coin", parseInt(coin) + 100);
+      const coinData = localStorage.getItem("coin");
+      if (!coinData) localStorage.setItem("coin", 0);
+      else localStorage.setItem("coin", parseInt(coinData) + 100);
     }
   }, [count]);
 
