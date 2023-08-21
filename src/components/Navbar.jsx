@@ -102,7 +102,7 @@ const Container = styled.div`
   bottom: 0;
   width: 100vw;
   max-width: 420px;
-  padding: 12px 50.67px 20px 50.67px;
+  padding: 12px 35.67px 20px 35.67px;
   border-radius: 20px 20px 0px 0px;
   background: #fff;
   display: flex;
@@ -123,6 +123,7 @@ const Btn = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  padding: 0 15px;
 `;
 const Icon = styled.img`
   width: 40px;
