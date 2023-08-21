@@ -144,6 +144,7 @@ const Container = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  padding-top: 16.5px;
 `;
 const TopRow = styled.div`
   width: calc(100% - 60px);

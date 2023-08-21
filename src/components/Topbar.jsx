@@ -13,9 +13,7 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   height: 59px;
-  margin-bottom: 16px;
   justify-content: center;
-  margin-bottom: 16.5px;
   background: var(--cg-900, #1b1d1f);
 `;
 const Logo = styled.img`

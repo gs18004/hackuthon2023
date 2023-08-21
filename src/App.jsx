@@ -7,6 +7,7 @@ import Chat from "./pages/Chat";
 import { AnimatePresence } from "framer-motion";
 import Product from "./pages/Product";
 import Taste from "./pages/Taste";
+import More from "./pages/More";
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,14 @@ function App() {
                 element={
                   <Container>
                     <Taste />
+                  </Container>
+                }
+              />
+              <Route
+                path="/more"
+                element={
+                  <Container>
+                    <More />
                   </Container>
                 }
               />

@@ -19,7 +19,7 @@ export default function Navbar() {
   const init = {
     "/": 0,
     "/taste": 1,
-    "/more": 2,
+    "/more": 3,
   };
   const [selected, setSelected] = useState(init[location.pathname]);
   const variants = {
@@ -66,7 +66,7 @@ export default function Navbar() {
         </Btn>
         <Btn
           onClick={async () => {
-            setSelected(2);
+            // setSelected(2);
             await controls2.start("start");
             // navigate(`/send?swipable=${swipable}&noti=${noti}`);
           }}
@@ -83,7 +83,7 @@ export default function Navbar() {
           onClick={async () => {
             setSelected(3);
             await controls3.start("start");
-            // navigate(`/more?swipable=${swipable}&noti=${noti}`);
+            navigate(`/more?swipable=${swipable}&noti=${noti}`);
           }}
           variants={variants}
           animate={controls3}
