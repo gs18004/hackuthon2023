@@ -81,9 +81,11 @@ export default function Product() {
           ],
         });
       } catch (e) {
+        console.log(e);
         toast.error(e);
       }
     } else {
+      console.log("공유하기 기능이 지원되지 않는 기기입니다.");
       toast.error("공유하기 기능이 지원되지 않는 기기입니다.");
     }
   };
