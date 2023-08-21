@@ -1,19 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import soso from "../assets/soso.svg";
-import tail from "../assets/tail.svg";
-import credit from "../assets/credit.svg";
-import floating from "../assets/floating.svg";
-import Topbar from "../components/Topbar";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { pageVariants } from "../animation/variants";
 import settings from "../assets/settings.svg";
+import book1 from "../assets/book1.png";
+import book2 from "../assets/book2.png";
+import book3 from "../assets/book3.png";
+import book4 from "../assets/book4.png";
+import book5 from "../assets/book5.png";
+import book6 from "../assets/book6.png";
+import book7 from "../assets/book7.png";
+import book8 from "../assets/book8.png";
+import book9 from "../assets/book9.png";
+import book10 from "../assets/book10.png";
+import book11 from "../assets/book11.png";
+import book12 from "../assets/book12.png";
 function Taste() {
   const [searchParams] = useSearchParams();
-  const noti = searchParams.get("noti");
-  const swipable = searchParams.get("swipable");
-  const navigate = useNavigate();
   const [selected, setSelected] = useState(0);
   const ref0 = useRef(null);
   const ref1 = useRef(null);
@@ -29,9 +33,33 @@ function Taste() {
     1: "오브제",
     2: "푸드",
   };
+  const books = [
+    { name: "요리", img: book1 },
+    { name: "예술", img: book2 },
+    { name: "역사", img: book3 },
+    { name: "부동산", img: book4 },
+    { name: "비즈니스", img: book5 },
+    { name: "철학", img: book6 },
+    { name: "에세이", img: book7 },
+    { name: "자기계발", img: book8 },
+    { name: "소설", img: book9 },
+    { name: "시집", img: book10 },
+    { name: "투자", img: book11 },
+    { name: "IT", img: book12 },
+  ];
   useEffect(() => {
     setLeft(ref[selected].current.offsetLeft);
   }, [selected]);
+
+  const variant = (i) => {
+    return {
+      visible: {
+        opacity: 1,
+        transition: { duration: 0.3, delay: 0.075 * i },
+      },
+      hidden: { opacity: 0 },
+    };
+  };
   return (
     <Container
       initial="initial"
@@ -83,6 +111,24 @@ function Taste() {
         </SelectRow>
         <Line />
         <SelectLine left={left} />
+        <GridWrapper>
+          <Grid>
+            <AnimatePresence>
+              {selected === 0
+                ? books.map((book, idx) => (
+                    <Column
+                      initial="hidden"
+                      animate="visible"
+                      variants={variant(idx)}
+                    >
+                      <Img src={book.img} />
+                      <Name>{book.name}</Name>
+                    </Column>
+                  ))
+                : null}
+            </AnimatePresence>
+          </Grid>
+        </GridWrapper>
       </SelectRowWrapper>
     </Container>
   );
@@ -187,4 +233,40 @@ const Em = styled.em`
   font-style: normal;
   font-weight: 700;
   line-height: 150%;
+`;
+const GridWrapper = styled.div`
+  height: 500px;
+  overflow: scroll;
+`;
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 24px;
+  margin-left: 25.5px;
+  margin-right: 25.5px;
+  margin-bottom: 130px;
+  gap: 16.71px 0;
+`;
+const Column = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+`;
+const Img = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  object-fit: cover;
+`;
+const Name = styled.p`
+  color: var(--cg-900, #1b1d1f);
+  text-align: center;
+
+  /* Kor/M/13 */
+  font-family: Pretendard;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 19.5px */
 `;

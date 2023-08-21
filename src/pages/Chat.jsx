@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import Topbar2 from "../components/Topbar2";
-import TinderCard from "react-tinder-card";
-import { useEffect, useRef, useState } from "react";
-import card1 from "../assets/card1.png";
-import { AnimatePresence, motion } from "framer-motion";
-import good from "../assets/good.svg";
-import bad from "../assets/bad.svg";
-import arrow from "../assets/arrow.svg";
+import { useRef } from "react";
+import { motion } from "framer-motion";
 import OpenBtn from "../components/OpenBtn";
 import { pageVariants } from "../animation/variants";
 import { useNavigate, useSearchParams } from "react-router-dom";
