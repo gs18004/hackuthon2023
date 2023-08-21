@@ -15,7 +15,7 @@ import mirror from "../assets/mirror.png";
 import chicken from "../assets/chicken.png";
 import holder from "../assets/holder.png";
 import { toBlob } from "html-to-image";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 export default function Product() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -177,6 +177,7 @@ export default function Product() {
           </SlideWrapper>
         ))}
       </CustomSlider>
+      <Toaster />
     </Container>
   );
 }
