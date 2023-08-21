@@ -15,6 +15,7 @@ import mirror from "../assets/mirror.png";
 import chicken from "../assets/chicken.png";
 import holder from "../assets/holder.png";
 import { toBlob } from "html-to-image";
+import toast from "react-hot-toast";
 export default function Product() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -80,12 +81,11 @@ export default function Product() {
           ],
         });
       } catch (e) {
-        console.log(e);
+        toast.error(e);
       }
+    } else {
+      toast.error("공유하기 기능이 지원되지 않는 기기입니다.");
     }
-    // } else {
-    //   toast.error("공유하기 기능이 지원되지 않는 기기입니다.");
-    // }
   };
   return (
     <Container
