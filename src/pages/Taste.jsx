@@ -16,10 +16,34 @@ import book9 from "../assets/book9.png";
 import book10 from "../assets/book10.png";
 import book11 from "../assets/book11.png";
 import book12 from "../assets/book12.png";
+import object1 from "../assets/object1.png";
+import object2 from "../assets/object2.png";
+import object3 from "../assets/object3.png";
+import object4 from "../assets/object4.png";
+import object5 from "../assets/object5.png";
+import object6 from "../assets/object6.png";
+import object7 from "../assets/object7.png";
+import object8 from "../assets/object8.png";
+import object9 from "../assets/object9.png";
+import object10 from "../assets/object10.png";
+import object11 from "../assets/object11.png";
+import object12 from "../assets/object12.png";
+import food1 from "../assets/food1.png";
+import food2 from "../assets/food2.png";
+import food3 from "../assets/food3.png";
+import food4 from "../assets/food4.png";
+import food5 from "../assets/food5.png";
+import food6 from "../assets/food6.png";
+import food7 from "../assets/food7.png";
+import food8 from "../assets/food8.png";
+import food9 from "../assets/food9.png";
+import food10 from "../assets/food10.png";
+import food11 from "../assets/food11.png";
+import food12 from "../assets/food12.png";
+
 import check from "../assets/check.svg";
 import toast, { Toaster } from "react-hot-toast";
 function Taste() {
-  const [searchParams] = useSearchParams();
   const [selected, setSelected] = useState(0);
   const ref0 = useRef(null);
   const ref1 = useRef(null);
@@ -77,6 +101,75 @@ function Taste() {
       setSelectedBooks(JSON.parse(selectedBooksData));
     }
   }, []);
+
+  const objects = [
+    { index: 0, name: "주방 용품", img: object1 },
+    { index: 1, name: "수납", img: object2 },
+    { index: 2, name: "전등", img: object3 },
+    { index: 3, name: "로코코", img: object4 },
+    { index: 4, name: "트렌디", img: object5 },
+    { index: 5, name: "심플", img: object6 },
+    { index: 6, name: "패브릭", img: object7 },
+    { index: 7, name: "우드", img: object8 },
+    { index: 8, name: "침실", img: object9 },
+    { index: 9, name: "캐릭터", img: object10 },
+    { index: 10, name: "일러스트", img: object11 },
+    { index: 11, name: "인형", img: object12 },
+  ];
+  const [selectedObjects, setSelectedObjects] = useState([
+    { index: 1, name: "수납", img: object2 },
+    { index: 2, name: "전등", img: object3 },
+  ]);
+  useEffect(() => {
+    const selectedObjectsData = localStorage.getItem("objects");
+    if (!selectedObjectsData)
+      localStorage.setItem(
+        "objects",
+        JSON.stringify([
+          { index: 1, name: "수납", img: object2 },
+          { index: 2, name: "전등", img: object3 },
+        ])
+      );
+    else {
+      setSelectedObjects(JSON.parse(selectedObjectsData));
+    }
+  }, []);
+
+  const foods = [
+    { index: 0, name: "구움과자", img: food1 },
+    { index: 1, name: "봉지과자", img: food2 },
+    { index: 2, name: "건어물", img: food3 },
+    { index: 3, name: "초콜릿", img: food4 },
+    { index: 4, name: "젤리", img: food5 },
+    { index: 5, name: "냉동식품", img: food6 },
+    { index: 6, name: "밀키트", img: food7 },
+    { index: 7, name: "음료", img: food8 },
+    { index: 8, name: "육류", img: food9 },
+    { index: 9, name: "야채", img: food10 },
+    { index: 10, name: "과일", img: food11 },
+    { index: 11, name: "유제품", img: food12 },
+  ];
+  const [selectedFoods, setSelectedFoods] = useState([
+    { index: 4, name: "젤리", img: food5 },
+    { index: 5, name: "냉동식품", img: food6 },
+    { index: 10, name: "과일", img: food11 },
+  ]);
+  useEffect(() => {
+    const selectedFoodsData = localStorage.getItem("foods");
+    if (!selectedFoodsData)
+      localStorage.setItem(
+        "foods",
+        JSON.stringify([
+          { index: 4, name: "젤리", img: food5 },
+          { index: 5, name: "냉동식품", img: food6 },
+          { index: 10, name: "과일", img: food11 },
+        ])
+      );
+    else {
+      setSelectedFoods(JSON.parse(selectedFoodsData));
+    }
+  }, []);
+
   const variant = (i) => {
     return {
       visible: {
@@ -210,6 +303,145 @@ function Taste() {
                       >
                         <Img src={book.img} />
                         <Name>{book.name}</Name>
+                      </Column>
+                    ))
+                : null}
+              {selected === 1
+                ? editMode
+                  ? objects.map((object, idx) => (
+                      <Column
+                        initial="hidden"
+                        animate="visible"
+                        variants={variant(idx)}
+                      >
+                        {selectedObjects.filter((el) => el.name === object.name)
+                          .length > 0 ? (
+                          <Check
+                            src={check}
+                            onClick={() => {
+                              if (selectedObjects.length === 1) {
+                                toast.error(
+                                  "최소 1개의 관심 주제를 선택해주세요.",
+                                  { id: "1" }
+                                );
+                              } else {
+                                const newSelectedObjects = [
+                                  ...selectedObjects,
+                                ].filter((el) => el.name !== object.name);
+                                setSelectedObjects((prev) =>
+                                  [...prev].filter(
+                                    (el) => el.name !== object.name
+                                  )
+                                );
+                                localStorage.setItem(
+                                  "objects",
+                                  JSON.stringify(newSelectedObjects)
+                                );
+                              }
+                            }}
+                          />
+                        ) : null}
+                        <Img
+                          src={object.img}
+                          onClick={() => {
+                            const newSelectedObjects = [
+                              ...selectedObjects,
+                              object,
+                            ].sort(function (x, y) {
+                              return x.index - y.index;
+                            });
+                            setSelectedObjects((prev) =>
+                              [...prev, object].sort(function (x, y) {
+                                return x.index - y.index;
+                              })
+                            );
+                            localStorage.setItem(
+                              "objects",
+                              JSON.stringify(newSelectedObjects)
+                            );
+                          }}
+                        />
+                        <Name>{object.name}</Name>
+                      </Column>
+                    ))
+                  : selectedObjects.map((object, idx) => (
+                      <Column
+                        initial="hidden"
+                        animate="visible"
+                        variants={variant(idx)}
+                      >
+                        <Img src={object.img} />
+                        <Name>{object.name}</Name>
+                      </Column>
+                    ))
+                : null}
+
+              {selected === 2
+                ? editMode
+                  ? foods.map((food, idx) => (
+                      <Column
+                        initial="hidden"
+                        animate="visible"
+                        variants={variant(idx)}
+                      >
+                        {selectedFoods.filter((el) => el.name === food.name)
+                          .length > 0 ? (
+                          <Check
+                            src={check}
+                            onClick={() => {
+                              if (selectedFoods.length === 1) {
+                                toast.error(
+                                  "최소 1개의 관심 주제를 선택해주세요.",
+                                  { id: "1" }
+                                );
+                              } else {
+                                const newSelectedFoods = [
+                                  ...selectedFoods,
+                                ].filter((el) => el.name !== food.name);
+                                setSelectedFoods((prev) =>
+                                  [...prev].filter(
+                                    (el) => el.name !== food.name
+                                  )
+                                );
+                                localStorage.setItem(
+                                  "foods",
+                                  JSON.stringify(newSelectedFoods)
+                                );
+                              }
+                            }}
+                          />
+                        ) : null}
+                        <Img
+                          src={food.img}
+                          onClick={() => {
+                            const newSelectedFoods = [
+                              ...selectedFoods,
+                              food,
+                            ].sort(function (x, y) {
+                              return x.index - y.index;
+                            });
+                            setSelectedFoods((prev) =>
+                              [...prev, food].sort(function (x, y) {
+                                return x.index - y.index;
+                              })
+                            );
+                            localStorage.setItem(
+                              "foods",
+                              JSON.stringify(newSelectedFoods)
+                            );
+                          }}
+                        />
+                        <Name>{food.name}</Name>
+                      </Column>
+                    ))
+                  : selectedFoods.map((food, idx) => (
+                      <Column
+                        initial="hidden"
+                        animate="visible"
+                        variants={variant(idx)}
+                      >
+                        <Img src={food.img} />
+                        <Name>{food.name}</Name>
                       </Column>
                     ))
                 : null}

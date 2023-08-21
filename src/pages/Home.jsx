@@ -14,6 +14,12 @@ function Home() {
   const swipable = searchParams.get("swipable");
   const navigate = useNavigate();
   const [coin, setCoin] = useState(0);
+  const easterEggs = [
+    "나는 갓 돌린 빨래에서 나는 섬유유연제 향이 제일 좋더라 :)",
+    "요즘 잘 챙겨 먹고 있지?",
+    "세상에서 제일 예쁜 사람은 누구게?",
+    "요즘 날이 너무 덥지 않아?",
+  ];
   useEffect(() => {
     const coinData = localStorage.getItem("coin");
     if (!coinData) localStorage.setItem("coin", 0);
@@ -55,7 +61,7 @@ function Home() {
           </>
         ) : (
           <Message>
-            나는 갓 돌린 빨래에서 나는 섬유유연제 향이 제일 좋더라 :)
+            {easterEggs[Math.floor(Math.random() * easterEggs.length)]}
           </Message>
         )}
       </MessageBox>
