@@ -8,6 +8,7 @@ import Topbar from "../components/Topbar";
 import { motion } from "framer-motion";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { pageVariants } from "../animation/variants";
+import settings from "../assets/settings.svg";
 function Taste() {
   const [searchParams] = useSearchParams();
   const noti = searchParams.get("noti");
@@ -23,6 +24,11 @@ function Taste() {
     1: ref1,
     2: ref2,
   };
+  const title = {
+    0: "도서",
+    1: "오브제",
+    2: "푸드",
+  };
   useEffect(() => {
     setLeft(ref[selected].current.offsetLeft);
   }, [selected]);
@@ -34,9 +40,11 @@ function Taste() {
       variants={pageVariants}
     >
       <TopRow>
-        <Title>Taste</Title>
+        <Title>
+          소소한 <Em>{title[selected]}</Em> 소포 어떠세요?
+        </Title>
         <CreditBox>
-          <CreditImg src={credit} />
+          <CreditImg src={settings} />
           <CreditText>편집</CreditText>
         </CreditBox>
       </TopRow>
@@ -99,14 +107,14 @@ const TopRow = styled.div`
   margin-bottom: 22px;
 `;
 const Title = styled.p`
-  color: var(--cg-600, #454c53);
+  color: rgba(30, 30, 30, 0.3);
 
-  /* Kor/B/22 */
+  /* Kor/B/17 */
   font-family: Pretendard;
-  font-size: 22px;
+  font-size: 17px;
   font-style: normal;
   font-weight: 700;
-  line-height: 150%; /* 33px */
+  line-height: 150%; /* 25.5px */
 `;
 const CreditBox = styled.div`
   display: flex;
@@ -168,4 +176,15 @@ const SelectLine = styled.div`
   background: #1e1e1e;
   margin-left: ${(props) => props.left + "px"};
   transition: 0.4s ease;
+  margin-top: -1px;
+`;
+const Em = styled.em`
+  color: #1e1e1e;
+
+  /* Kor/B/17 */
+  font-family: Pretendard;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
 `;

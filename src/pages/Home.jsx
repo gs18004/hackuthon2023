@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import soso from "../assets/soso.svg";
 import tail from "../assets/tail.svg";
@@ -13,6 +13,15 @@ function Home() {
   const noti = searchParams.get("noti");
   const swipable = searchParams.get("swipable");
   const navigate = useNavigate();
+  const [coin, setCoin] = useState(0);
+  useEffect(() => {
+    const coinData = localStorage.getItem("coin");
+    if (!coinData) localStorage.setItem("coin", 100);
+    else {
+      setCoin(coinData);
+      localStorage.setItem("coin", coinData);
+    }
+  }, []);
   return (
     <Container
       initial="initial"
@@ -24,7 +33,7 @@ function Home() {
         {/* <Title>Home</Title> */}
         <CreditBox>
           <CreditImg src={credit} />
-          <CreditText>100</CreditText>
+          <CreditText>{coin}</CreditText>
         </CreditBox>
       </TopRow>
       <MessageBox

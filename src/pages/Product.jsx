@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { pageVariants } from "../animation/variants";
 import { motion } from "framer-motion";
@@ -14,6 +14,7 @@ import share from "../assets/share.svg";
 import mirror from "../assets/mirror.png";
 import chicken from "../assets/chicken.png";
 import holder from "../assets/holder.png";
+import { toBlob } from "html-to-image";
 export default function Product() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -21,6 +22,11 @@ export default function Product() {
   const swipable = searchParams.get("swipable");
   const [isBad, setIsBad] = useState([null, null, null, null]);
   const [isGood, setIsGood] = useState([null, null, null, null]);
+  const imageRef1 = useRef(null);
+  const imageRef2 = useRef(null);
+  const imageRef3 = useRef(null);
+  const imageRef4 = useRef(null);
+  const imageRefs = [imageRef1, imageRef2, imageRef3, imageRef4];
   const cards = [
     {
       name: "비정형 전신 거울",
@@ -47,7 +53,7 @@ export default function Product() {
       name: "BAE 인센스 홀더",
       type: "도서",
       subtitle: "SAGAYO",
-      date: "2023. 08. 21",
+      date: "2023. 08. 31",
       img: holder,
     },
   ];
@@ -60,6 +66,26 @@ export default function Product() {
     slidesToShow: 1,
     slidesToScroll: 1,
     centerPadding: "60px",
+  };
+
+  const shareHandler = async (name, idx) => {
+    if (navigator.share) {
+      try {
+        const file = await toBlob(imageRefs[idx].current);
+        await navigator.share({
+          files: [
+            new File([file], name + ".png", {
+              type: file.type,
+            }),
+          ],
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    // } else {
+    //   toast.error("공유하기 기능이 지원되지 않는 기기입니다.");
+    // }
   };
   return (
     <Container
@@ -82,7 +108,12 @@ export default function Product() {
               <CardTop>
                 <Row>
                   <Type>{card.type}</Type>
-                  <Share src={share} />
+                  <Share
+                    src={share}
+                    onClick={() => {
+                      shareHandler(card.name, idx);
+                    }}
+                  />
                 </Row>
                 <Subtitle>{card.subtitle}</Subtitle>
                 <Name>{card.name}</Name>
@@ -92,7 +123,7 @@ export default function Product() {
                 </Row2>
               </CardTop>
               <ImgWrapper>
-                <Img src={card.img} />
+                <Img src={card.img} ref={imageRefs[idx]} />
                 <Gradient>
                   <Column
                     style={{ marginLeft: "17.5px" }}

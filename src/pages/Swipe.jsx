@@ -13,6 +13,8 @@ import bad from "../assets/bad.svg";
 import arrow from "../assets/arrow.svg";
 import { pageVariants } from "../animation/variants";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import Lottie from "lottie-react";
+import animationData from "../lottie/coin.json";
 
 export default function Swipe() {
   const [searchParams] = useSearchParams();
@@ -33,6 +35,14 @@ export default function Swipe() {
     }
     setCount(count + 1);
   };
+
+  useEffect(() => {
+    if (count === 5) {
+      const coin = localStorage.getItem("coin");
+      if (!coin) localStorage.setItem("coin", 100);
+      else localStorage.setItem("coin", parseInt(coin) + 100);
+    }
+  }, [count]);
 
   return (
     <Container initial="in" animate="in" exit="out" variants={pageVariants}>
@@ -100,6 +110,39 @@ export default function Swipe() {
           </StyledTinderCard>
         ))}
       </CardsContainer>
+      <AnimatePresence>
+        {count === 5 ? (
+          <End>
+            <CustomLottie animationData={animationData} loop={true} />
+            <EndText
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              100 코인을 얻었어요!
+              <br />
+              이제 소소가 뭐하고 있는지 구경하러 가 볼까요?
+            </EndText>
+            <Btn
+              initial={{ opacity: 0, y: 50 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              onClick={() => {
+                navigate(`/?swipable=false&noti=${noti}`);
+              }}
+            >
+              홈으로
+            </Btn>
+          </End>
+        ) : null}
+      </AnimatePresence>
     </Container>
   );
 }
@@ -258,4 +301,49 @@ const Ok = styled.p`
   opacity: 0.8;
   margin-top: 100px;
   padding: 20px;
+`;
+const End = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const CustomLottie = styled(Lottie)`
+  width: 280px;
+  height: 280px;
+  margin-top: 100px;
+`;
+const EndText = styled(motion.p)`
+  color: #000;
+  text-align: center;
+
+  /* Kor/M/15 */
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 22.5px */
+  margin-top: 24px;
+`;
+const Btn = styled(motion.div)`
+  cursor: pointer;
+  position: fixed;
+  bottom: 52px;
+  display: flex;
+  width: 352px;
+  height: 32px;
+  padding: 12px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--cg-800, #26282b);
+  color: var(--cg-50, #f7f8f9);
+
+  /* Kor/M/15 */
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 22.5px */
 `;
