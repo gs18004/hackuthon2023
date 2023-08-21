@@ -80,7 +80,7 @@ const BoxColumn = styled.div`
   gap: 40px;
   overflow: scroll;
   padding-top: 16.5px;
-  padding-bottom: 200px;
+  padding-bottom: 250px;
 `;
 const Box = styled.div`
   width: calc(100% - 40px);

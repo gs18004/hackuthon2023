@@ -255,9 +255,9 @@ const Column = styled(motion.div)`
   gap: 4px;
 `;
 const Img = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 100px;
+  width: 95px;
+  height: 95px;
+  border-radius: 95px;
   object-fit: cover;
 `;
 const Name = styled.p`
