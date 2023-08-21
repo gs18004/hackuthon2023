@@ -131,15 +131,16 @@ const Card = styled.div`
 `;
 const CardImg = styled.img`
   width: 286px;
-  height: 435px;
+  height: 405px;
   object-fit: cover;
 `;
 const CardBottom = styled.div`
   width: 286px;
-  height: 72px;
+  height: 102px;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   gap: 8px;
 `;
 const CardType = styled.div`
@@ -149,7 +150,7 @@ const CardType = styled.div`
   align-items: center;
   gap: 10px;
   border-radius: 4px;
-  background: var(--brand-500, #397153);
+  background: var(--cg-600, #454c53);
   color: var(--cg-50, #f7f8f9);
 
   /* Kor/M/13 */
@@ -169,6 +170,7 @@ const CardName = styled.p`
   font-style: normal;
   font-weight: 700;
   line-height: 150%; /* 25.5px */
+  margin-left: 16px;
 `;
 const Tutorial = styled(motion.div)`
   margin-top: 24px;
@@ -219,7 +221,6 @@ const Icon = styled.img`
   height: 24px;
 `;
 const Circle = styled.div`
-  cursor: pointer;
   display: flex;
   width: 48px;
   height: 48px;

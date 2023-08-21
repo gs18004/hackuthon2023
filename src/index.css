@@ -152,6 +152,12 @@ body {
       format("truetype");
   font-display: swap;
 }
+@font-face {
+  font-family: "Nikoovers";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./fonts/Nikoovers.ttf") format("woff");
+}
 .slick-center {
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);

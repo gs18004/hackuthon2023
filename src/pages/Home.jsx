@@ -21,7 +21,7 @@ function Home() {
       variants={pageVariants}
     >
       <TopRow>
-        <Title>Home</Title>
+        {/* <Title>Home</Title> */}
         <CreditBox>
           <CreditImg src={credit} />
           <CreditText>100</CreditText>
@@ -98,7 +98,7 @@ const TopRow = styled.div`
   width: calc(100% - 40px);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-bottom: 22px;
 `;
 const Title = styled.p`
@@ -125,11 +125,11 @@ const CreditImg = styled.img`
   height: 24px;
 `;
 const CreditText = styled.p`
-  color: var(--brand-800, #28666e);
-  font-family: Pretendard;
+  color: var(--cg-800, #26282b);
+  font-family: Nikoovers;
   font-size: 17px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 150%; /* 25.5px */
 `;
 const MessageBox = styled(motion.div)`

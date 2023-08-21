@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { pageVariants } from "../animation/variants";
 import { motion } from "framer-motion";
@@ -16,6 +16,8 @@ export default function Product() {
   const [searchParams] = useSearchParams();
   const month = searchParams.get("month");
   const swipable = searchParams.get("swipable");
+  const [isBad, setIsBad] = useState([null, null, null, null]);
+  const [isGood, setIsGood] = useState([null, null, null, null]);
   const cards = [
     {
       name: "메리골드 마음 세탁소",
@@ -71,7 +73,7 @@ export default function Product() {
       />
       <TopDate>{`2023년 ${month}월`}</TopDate>
       <CustomSlider {...settings}>
-        {cards.map((card) => (
+        {cards.map((card, idx) => (
           <SlideWrapper>
             <Slide>
               <CardTop>
@@ -89,14 +91,46 @@ export default function Product() {
               <ImgWrapper>
                 <Img src={card.img} />
                 <Gradient>
-                  <Column style={{ marginLeft: "17.5px" }}>
-                    <Circle>
+                  <Column
+                    style={{ marginLeft: "17.5px" }}
+                    opacity={isBad[idx] ? 1 : isGood[idx] ? 0.2 : 0.7}
+                  >
+                    <Circle
+                      onClick={() => {
+                        setIsBad((prev) => {
+                          const newIsBad = [...prev];
+                          newIsBad[idx] = true;
+                          return newIsBad;
+                        });
+                        setIsGood((prev) => {
+                          const newIsGood = [...prev];
+                          newIsGood[idx] = false;
+                          return newIsGood;
+                        });
+                      }}
+                    >
                       <Icon src={bad} />
                     </Circle>
                     <EvalText>별로예요</EvalText>
                   </Column>
-                  <Column style={{ marginRight: "17.5px" }}>
-                    <Circle>
+                  <Column
+                    style={{ marginRight: "17.5px" }}
+                    opacity={isGood[idx] ? 1 : isBad[idx] ? 0.2 : 0.7}
+                  >
+                    <Circle
+                      onClick={() => {
+                        setIsBad((prev) => {
+                          const newIsBad = [...prev];
+                          newIsBad[idx] = false;
+                          return newIsBad;
+                        });
+                        setIsGood((prev) => {
+                          const newIsGood = [...prev];
+                          newIsGood[idx] = true;
+                          return newIsGood;
+                        });
+                      }}
+                    >
                       <Icon src={good} />
                     </Circle>
                     <EvalText>좋아요</EvalText>
@@ -206,6 +240,7 @@ const Column = styled.div`
   justify-content: flex-end;
   gap: 5px;
   margin-bottom: 19px;
+  opacity: ${(props) => props.opacity};
 `;
 const Icon = styled.img`
   width: 24px;
@@ -221,6 +256,9 @@ const Circle = styled.div`
   border-radius: 48px;
   background: rgba(247, 248, 249, 0.1);
   margin-top: 22px;
+  &:active {
+    scale: 0.95;
+  }
 `;
 const EvalText = styled.p`
   color: #fff;
